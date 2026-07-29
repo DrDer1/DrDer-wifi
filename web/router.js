@@ -195,6 +195,3 @@ class Router {
         return this.currentPage;
     }
 }
-
-// تصدير الفئة لتكون متاحة عالمياً
-window.Router = Router;
