@@ -1,0 +1,16 @@
+{
+  "name": "drder-wifi-server",
+  "version": "1.0.0",
+  "description": "خادم محلي للتحكم في الشبكة - DrDer-WiFi",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "scan": "node scanner.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
+  },
+  "author": "DrDer",
+  "license": "MIT"
+}
