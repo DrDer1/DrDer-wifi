@@ -1,7 +1,7 @@
 {
   "name": "DrDer-WiFi",
   "short_name": "DrDer-WiFi",
-  "description": "تطبيق لعرض معلومات الشبكة المحلية والأجهزة المتصلة بها",
+  "description": "تطبيق لعرض معلومات الشبكة المحلية والأجهزة المتصلة بها مع إمكانية التحكم",
   "start_url": "index.html",
   "display": "standalone",
   "orientation": "portrait-primary",
@@ -11,18 +11,20 @@
   "dir": "rtl",
   "icons": [
     {
-      "src": "icons/icon-192.png",
+      "src": "192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "icons/icon-512.png",
+      "src": "512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
     }
   ],
-  "categories": ["utilities", "productivity"],
-  "prefer_related_applications": false
+  "categories": ["utilities", "productivity", "networking"],
+  "prefer_related_applications": false,
+  "scope": "/",
+  "related_applications": []
 }
