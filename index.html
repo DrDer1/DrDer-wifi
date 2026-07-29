@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#0a0a0a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="DrDer-WiFi">
+    <meta name="description" content="تطبيق DrDer-WiFi لإدارة وعرض معلومات الشبكة والأجهزة المتصلة">
+    <title>DrDer-WiFi</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="icons/icon-512.png">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- شاشة التحميل الأولية -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="40" cy="40" r="36" stroke="#00bcd4" stroke-width="3" fill="none"/>
+                    <path d="M40 16 C26 22 18 30 18 40 C18 50 26 58 40 64" stroke="#00bcd4" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    <path d="M40 24 C30 28 24 34 24 40 C24 46 30 52 40 56" stroke="#0097a7" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                    <path d="M40 32 C34 34 30 37 30 40 C30 43 34 46 40 48" stroke="#00e5ff" stroke-width="2" fill="none" stroke-linecap="round"/>
+                    <circle cx="40" cy="40" r="5" fill="#00bcd4"/>
+                </svg>
+            </div>
+            <div class="splash-title">DrDer-WiFi</div>
+            <div class="splash-loader">
+                <div class="loader-bar"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- الحاوية الرئيسية للتطبيق -->
+    <div id="app-container" class="app-container">
+        <!-- رأس التطبيق -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">DrDer-WiFi</h1>
+                <div class="header-status">
+                    <span id="connection-status" class="status-indicator offline">●</span>
+                    <span id="connection-text" class="status-text">غير متصل</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- المحتوى الرئيسي -->
+        <main class="app-main">
+            <!-- صفحة الرئيسية -->
+            <section id="page-home" class="page active">
+                <div class="network-summary-card">
+                    <div class="card-icon">
+                        <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="16" stroke="#00bcd4" stroke-width="2" fill="none"/>
+                            <path d="M20 8 C13 11 8 16 8 20 C8 24 13 29 20 32" stroke="#00bcd4" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <path d="M20 13 C15 15 12 18 12 20 C12 22 15 25 20 27" stroke="#0097a7" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+                            <circle cx="20" cy="20" r="4" fill="#00bcd4"/>
+                        </svg>
+                    </div>
+                    <div class="card-info">
+                        <span class="card-label">اسم الشبكة</span>
+                        <span id="home-ssid" class="card-value">جارٍ التحميل...</span>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="4" y="8" width="20" height="14" rx="2" stroke="#00bcd4" stroke-width="2" fill="none"/>
+                                <line x1="14" y1="3" x2="14" y2="8" stroke="#00bcd4" stroke-width="2"/>
+                                <circle cx="14" cy="14" r="3" fill="#00bcd4"/>
+                                <line x1="14" y1="17" x2="14" y2="20" stroke="#00bcd4" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                        <span class="stat-label">عنوان الراوتر</span>
+                        <span id="home-gateway" class="stat-value">---</span>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="8" cy="8" r="3" stroke="#00e5ff" stroke-width="2" fill="none"/>
+                                <circle cx="20" cy="12" r="3" stroke="#00e5ff" stroke-width="2" fill="none"/>
+                                <circle cx="10" cy="20" r="3" stroke="#00e5ff" stroke-width="2" fill="none"/>
+                                <line x1="10" y1="9.5" x2="17.5" y2="11" stroke="#00e5ff" stroke-width="1.5"/>
+                                <line x1="10" y1="11" x2="11" y2="17.5" stroke="#00e5ff" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                        <span class="stat-label">الأجهزة المتصلة</span>
+                        <span id="home-device-count" class="stat-value">0</span>
+                    </div>
+                </div>
+                <div class="ip-display-card">
+                    <span class="ip-label">عنوان IP الخاص بك</span>
+                    <span id="home-local-ip" class="ip-value">---</span>
+                </div>
+            </section>
+
+            <!-- صفحة الأجهزة المتصلة -->
+            <section id="page-devices" class="page">
+                <div class="page-header-bar">
+                    <h2 class="page-title">الأجهزة المتصلة</h2>
+                    <button id="refresh-devices-btn" class="refresh-btn" title="تحديث قائمة الأجهزة">
+                        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M2 11 C2 6 6 2 11 2 C14.5 2 17.5 4 19 7" stroke="#00bcd4" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <path d="M20 11 C20 16 16 20 11 20 C7.5 20 4.5 18 3 15" stroke="#00bcd4" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <polygon points="19,3 21,7 17,7" fill="#00bcd4"/>
+                            <polygon points="3,19 1,15 5,15" fill="#00bcd4"/>
+                        </svg>
+                    </button>
+                </div>
+                <div id="devices-list" class="devices-list">
+                    <div class="empty-state">
+                        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="20" cy="20" r="8" stroke="#333" stroke-width="2" fill="none"/>
+                            <circle cx="40" cy="28" r="8" stroke="#333" stroke-width="2" fill="none"/>
+                            <circle cx="25" cy="42" r="8" stroke="#333" stroke-width="2" fill="none"/>
+                            <line x1="25" y1="23" x2="35" y2="26" stroke="#333" stroke-width="1.5"/>
+                            <line x1="25" y1="25" x2="26" y2="36" stroke="#333" stroke-width="1.5"/>
+                        </svg>
+                        <p>لا توجد أجهزة مكتشفة</p>
+                        <span>اضغط على زر التحديث لفحص الشبكة</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- صفحة معلومات الشبكة -->
+            <section id="page-network" class="page">
+                <h2 class="page-title">معلومات الشبكة</h2>
+                <div class="info-list">
+                    <div class="info-item">
+                        <span class="info-label">اسم الشبكة (SSID)</span>
+                        <span id="net-ssid" class="info-value">---</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">عنوان الراوتر (Gateway)</span>
+                        <span id="net-gateway" class="info-value">---</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">عنوان IP المحلي</span>
+                        <span id="net-local-ip" class="info-value">---</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">قناع الشبكة الفرعية</span>
+                        <span id="net-subnet" class="info-value">---</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">نطاق IP</span>
+                        <span id="net-range" class="info-value">---</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">حالة الاتصال</span>
+                        <span id="net-status" class="info-value">---</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- صفحة الإعدادات -->
+            <section id="page-settings" class="page">
+                <h2 class="page-title">الإعدادات</h2>
+                <div class="settings-list">
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-label">فحص متقدم للشبكة</span>
+                            <span class="setting-desc">محاولة تحديد نوع الجهاز والشركة المصنعة</span>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="setting-advanced-scan" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-label">عدد محاولات الفحص</span>
+                            <span class="setting-desc">عدد المحاولات لكل عنوان IP</span>
+                        </div>
+                        <div class="setting-control">
+                            <button id="setting-retries-dec" class="ctrl-btn">−</button>
+                            <span id="setting-retries-value" class="ctrl-value">2</span>
+                            <button id="setting-retries-inc" class="ctrl-btn">+</button>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-info">
+                            <span class="setting-label">مهلة الفحص (مللي ثانية)</span>
+                            <span class="setting-desc">الوقت المسموح لانتظار رد الجهاز</span>
+                        </div>
+                        <div class="setting-control">
+                            <button id="setting-timeout-dec" class="ctrl-btn">−</button>
+                            <span id="setting-timeout-value" class="ctrl-value">1000</span>
+                            <button id="setting-timeout-inc" class="ctrl-btn">+</button>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <button id="clear-cache-btn" class="danger-btn">مسح الذاكرة المؤقتة</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- صفحة حول التطبيق -->
+            <section id="page-about" class="page">
+                <h2 class="page-title">حول التطبيق</h2>
+                <div class="about-card">
+                    <div class="about-logo">
+                        <svg width="60" height="60" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="40" cy="40" r="36" stroke="#00bcd4" stroke-width="3" fill="none"/>
+                            <path d="M40 16 C26 22 18 30 18 40 C18 50 26 58 40 64" stroke="#00bcd4" stroke-width="3" fill="none" stroke-linecap="round"/>
+                            <path d="M40 24 C30 28 24 34 24 40 C24 46 30 52 40 56" stroke="#0097a7" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                            <path d="M40 32 C34 34 30 37 30 40 C30 43 34 46 40 48" stroke="#00e5ff" stroke-width="2" fill="none" stroke-linecap="round"/>
+                            <circle cx="40" cy="40" r="5" fill="#00bcd4"/>
+                        </svg>
+                    </div>
+                    <h3 class="about-name">DrDer-WiFi</h3>
+                    <span class="about-version">الإصدار 1.0.0</span>
+                    <p class="about-desc">تطبيق بسيط لعرض معلومات الشبكة المحلية والأجهزة المتصلة بها. يعمل على المتصفح دون الحاجة لأي خوادم خارجية.</p>
+                    <div class="about-links">
+                        <a href="https://github.com/DrDer1/DrDer-wifi" target="_blank" rel="noopener noreferrer" class="about-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2 C6.477 2 2 6.477 2 12 C2 16.418 4.865 20.166 8.84 21.49 C9.34 21.58 9.52 21.27 9.52 21 C9.52 20.77 9.51 19.99 9.51 19.16 C6.73 19.76 6.14 17.97 6.14 17.97 C5.68 16.81 5.02 16.5 5.02 16.5 C4.12 15.88 5.09 15.89 5.09 15.89 C6.08 15.96 6.6 16.91 6.6 16.91 C7.49 18.43 8.94 17.99 9.54 17.74 C9.63 17.1 9.89 16.66 10.18 16.42 C7.95 16.17 5.62 15.31 5.62 11.48 C5.62 10.39 6.01 9.5 6.65 8.79 C6.55 8.54 6.2 7.52 6.75 6.15 C6.75 6.15 7.59 5.88 9.5 7.17 C10.29 6.95 11.15 6.84 12 6.84 C12.85 6.84 13.71 6.95 14.5 7.17 C16.41 5.88 17.25 6.15 17.25 6.15 C17.8 7.52 17.45 8.54 17.35 8.79 C17.99 9.5 18.38 10.39 18.38 11.48 C18.38 15.32 16.04 16.16 13.81 16.41 C14.17 16.72 14.5 17.33 14.5 18.26 C14.5 19.6 14.49 20.68 14.49 20.99 C14.49 21.26 14.67 21.58 15.17 21.48 C19.14 20.16 22 16.42 22 12 C22 6.477 17.523 2 12 2Z" fill="#e0e0e0"/>
+                            </svg>
+                            <span>المستودع على GitHub</span>
+                        </a>
+                    </div>
+                    <p class="about-copy">جميع الحقوق محفوظة © 2026 DrDer</p>
+                </div>
+            </section>
+        </main>
+
+        <!-- شريط التنقل السفلي -->
+        <nav class="bottom-nav">
+            <button class="nav-btn active" data-page="home" title="الرئيسية">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12 L12 3 L21 12" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 10 L5 20 L10 20 L10 14 L14 14 L14 20 L19 20 L19 10" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>الرئيسية</span>
+            </button>
+            <button class="nav-btn" data-page="devices" title="الأجهزة">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="4" width="15" height="12" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <rect x="6" y="18" width="7" height="2" rx="1" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <circle cx="19" cy="10" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <line x1="19" y1="10" x2="19" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span>الأجهزة</span>
+            </button>
+            <button class="nav-btn" data-page="network" title="الشبكة">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <line x1="12" y1="4" x2="12" y2="9" stroke="currentColor" stroke-width="2"/>
+                    <line x1="12" y1="15" x2="12" y2="20" stroke="currentColor" stroke-width="2"/>
+                    <line x1="4" y1="12" x2="9" y2="12" stroke="currentColor" stroke-width="2"/>
+                    <line x1="15" y1="12" x2="20" y2="12" stroke="currentColor" stroke-width="2"/>
+                </svg>
+                <span>الشبكة</span>
+            </button>
+            <button class="nav-btn" data-page="settings" title="الإعدادات">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <path d="M12 2 L12 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M12 18 L12 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M2 12 L6 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M18 12 L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M4.93 4.93 L7.76 7.76" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M16.24 16.24 L19.07 19.07" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span>الإعدادات</span>
+            </button>
+            <button class="nav-btn" data-page="about" title="حول">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" fill="none"/>
+                    <line x1="12" y1="8" x2="12" y2="8" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                    <line x1="12" y1="12" x2="12" y2="17" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span>حول</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- ملفات JavaScript -->
+    <script src="utils.js"></script>
+    <script src="ui.js"></script>
+    <script src="network.js"></script>
+    <script src="router.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
