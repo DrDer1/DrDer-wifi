@@ -1,18 +1,18 @@
 // اسم الكاش المستخدم لتخزين ملفات التطبيق
-const CACHE_NAME = 'drder-wifi-cache-v1';
+const CACHE_NAME = 'drder-wifi-cache-v2';
 
 // قائمة الملفات التي سيتم تخزينها عند تثبيت Service Worker
 const CACHE_ASSETS = [
     'index.html',
     'manifest.json',
-    'style.css',
-    'app.js',
-    'network.js',
-    'router.js',
-    'ui.js',
-    'utils.js',
-    'icons/icon-192.png',
-    'icons/icon-512.png'
+    '192.png',
+    '512.png',
+    'web/style.css',
+    'web/utils.js',
+    'web/ui.js',
+    'web/network.js',
+    'web/router.js',
+    'web/app.js'
 ];
 
 // حدث تثبيت Service Worker
@@ -63,7 +63,12 @@ self.addEventListener('fetch', (event) => {
         return;
     }
 
-    // تجاهل طلبات API الخارجية إن وجدت
+    // تجاهل طلبات الخادم المحلي
+    if (event.request.url.includes('localhost:3000') || event.request.url.includes('127.0.0.1:3000')) {
+        return;
+    }
+
+    // تجاهل طلبات API الخارجية
     if (event.request.url.includes('/api/') || event.request.url.includes('chrome-extension://')) {
         return;
     }
